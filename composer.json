@@ -1,10 +1,12 @@
 {
     "name": "creators/yii2-metroui",
-    "description": "The Metro UI CSS extension for the Yii framework",
-    "keywords": ["yii2", "metro-ui"],
+    "description": "The Metro UI CSS extension for the Yii framework 2",
+    "keywords": ["yii2", "metro-ui", "extension"],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
+        "issues": "https://github.com/creators/yii2-metroui/issues",
+        "wiki": "https://github.com/creators/yii2-metroui/wiki",
         "source": "https://github.com/creators/yii2-metroui"
     },
     "authors": [
