@@ -19,7 +19,7 @@ class MetroUiPluginAsset extends AssetBundle
 {
     public $sourcePath = '@bower/metro-ui-css';
     public $js = [
-        'js/metro.min.js',
+        'min/metro.min.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
