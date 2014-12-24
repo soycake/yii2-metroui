@@ -1,6 +1,6 @@
 <?php
 /**
- * @link http://www.fintegro.com/
+ * @link http://www.creators.zp.ua/yii2-metroui
  * @copyright Copyright (c) 2015 Fintegro Inc
  * @license BSD-3-Clause
  */
