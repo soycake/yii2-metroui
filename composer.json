@@ -1,0 +1,25 @@
+{
+    "name": "creators/yii2-metroui",
+    "description": "The Metro UI CSS extension for the Yii framework",
+    "keywords": ["yii2", "metro-ui"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "source": "https://github.com/creators/yii2-metroui"
+    },
+    "authors": [
+        {
+            "name": "Remchi",
+            "email": "creators@email.ua"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/metro-ui-css": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "creators\\metroui\\": ""
+        }
+    }
+}
