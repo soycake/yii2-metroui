@@ -5,7 +5,7 @@
  * @license BSD-3-Clause
  */
 
-namespace fintegro\metroui;
+namespace creators\metroui;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
@@ -85,7 +85,7 @@ use yii\helpers\ArrayHelper;
  *  ActiveForm::end();
  *  ```
  *
- * @see \fintegro\metroui\ActiveForm
+ * @see \creators\metroui\ActiveForm
  * @see http://metroui.org.ua/forms.html
  *
  * @author Remchi <creators@email.ua>

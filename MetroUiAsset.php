@@ -5,7 +5,7 @@
  * @license BSD-3-Clause
  */
 
-namespace fintegro\metroui;
+namespace creators\metroui;
 
 use yii\web\AssetBundle;
 

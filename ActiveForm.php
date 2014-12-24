@@ -5,7 +5,7 @@
  * @license BSD-3-Clause
  */
 
-namespace fintegro\metroui;
+namespace creators\metroui;
 
 /**
  * A Metro UI enhanced version of [[\yii\widgets\ActiveForm]].
@@ -14,12 +14,12 @@ namespace fintegro\metroui;
  * So for example to render form you would:
  *
  * ```php
- * use fintegro\metroui\ActiveForm;
+ * use creators\metroui\ActiveForm;
  *
  * $form = ActiveForm::begin([])
  * ```
  *
- * @see \fintegro\metroui\ActiveField for details on the [[fieldConfig]] options
+ * @see \creators\metroui\ActiveField for details on the [[fieldConfig]] options
  * @see http://metroui.org.ua/forms.html
  *
  * @author Remchi <creators@email.ua>
@@ -31,7 +31,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig
      */
-    public $fieldClass = 'fintegro\metroui\ActiveField';
+    public $fieldClass = 'creators\metroui\ActiveField';
     /**
      * @var array HTML attributes for the form tag. Default is `['role' => 'form']`.
      */

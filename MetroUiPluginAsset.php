@@ -5,7 +5,7 @@
  * @license BSD-3-Clause
  */
 
-namespace fintegro\metroui;
+namespace creators\metroui;
 
 use yii\web\AssetBundle;
 
@@ -23,6 +23,6 @@ class MetroUiPluginAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
-        'fintegro\metroui\MetroUiAsset',
+        'creators\metroui\MetroUiAsset',
     ];
 }
