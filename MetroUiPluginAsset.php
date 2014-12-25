@@ -22,7 +22,7 @@ class MetroUiPluginAsset extends AssetBundle
         'min/metro.min.js',
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
+        'yii\jui\JuiAsset',
         'creators\metroui\MetroUiAsset',
     ];
 }

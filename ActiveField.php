@@ -97,7 +97,7 @@ class ActiveField extends \yii\widgets\ActiveField
      * @var string the template that is used to arrange the label, the input field, the error message and the hint text.
      * The following tokens will be replaced when [[render()]] is called: `{label}`, `{input}`, `{error}` and `{hint}`.
      */
-    public $template = "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}";
+    public $template = "{label}\n{input}\n{hint}\n{error}\n";
     /**
      * @var string|null optional template to render the `{input}` placeholder content
      */
@@ -111,9 +111,17 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public $checkboxTemplate = "<div class=\"input-control checkbox\" data-role=\"input-control\">\n{beginLabel}\n{input}\n<span class=\"check\"></span>\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
     /**
+     * @var string the template for switch in default layout
+     */
+    public $switchTemplate = "<div class=\"input-control switch\" data-role=\"input-control\">\n{beginLabel}\n{input}\n<span class=\"check\"></span>\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
+    /**
      * @var string the template for radios in default layout
      */
     public $radioTemplate = "<div class=\"input-control radio\" data-role=\"input-control\">\n{beginLabel}\n{input}\n<span class=\"check\"></span>\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
+    /**
+     * @var string the template for radios in default layout
+     */
+    public $fileTemplate = "<div class=\"input-control file\" data-role=\"input-control\">\n{beginLabel}\n{input}\n<button class=\"btn-file\"></button>\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
     /**
      * @var boolean whether to render the error. Default is `true` except for layout `inline`.
      */
@@ -122,7 +130,6 @@ class ActiveField extends \yii\widgets\ActiveField
      * @var boolean whether to render the label. Default is `true`.
      */
     public $enableLabel = true;
-
 
     /**
      * @inheritdoc
@@ -164,7 +171,46 @@ class ActiveField extends \yii\widgets\ActiveField
                 $this->parts['{input}'] = strtr($this->inputTemplate, ['{input}' => $input]);
             }
         }
+
         return parent::render($content);
+    }
+
+    /**
+     * Renders the opening tag of the field container.
+     * @return string the rendering result.
+     */
+    public function begin()
+    {
+        if ($this->form->enableClientScript) {
+            $clientOptions = $this->getClientOptions();
+            if (!empty($clientOptions)) {
+                $this->form->attributes[] = $clientOptions;
+            }
+        }
+        $inputID = Html::getInputId($this->model, $this->attribute);
+        $attribute = Html::getAttributeName($this->attribute);
+        $options = $this->options;
+        $class = isset($options['class']) ? [$options['class']] : [];
+        $class[] = "field-$inputID";
+        if ($this->model->isAttributeRequired($attribute)) {
+            $class[] = $this->form->requiredCssClass;
+        }
+        if ($this->model->hasErrors($attribute)) {
+            $class[] = $this->form->errorCssClass;
+        }
+        $options['class'] = implode(' ', $class);
+        $options['style'] = 'height: auto;';
+        $tag = ArrayHelper::remove($options, 'tag', 'div');
+        return Html::beginTag($tag, $options);
+    }
+
+    /**
+     * Renders the closing tag of the field container.
+     * @return string the rendering result.
+     */
+    public function end()
+    {
+        return Html::endTag(isset($this->options['tag']) ? $this->options['tag'] : 'div');
     }
 
     /**
@@ -180,7 +226,7 @@ class ActiveField extends \yii\widgets\ActiveField
         $options = array_merge($this->inputOptions, $options);
         $this->adjustLabelFor($options);
         $this->parts['{input}'] = Html::activePasswordInput($this->model, $this->attribute, $options);
-        $this->wrapperOptions['class'] = str_replace('text', 'password', $this->wrapperOptions['class']);
+        $this->options['class'] = str_replace('text', 'password', $this->options['class']);
 
         return $this;
     }
@@ -204,7 +250,25 @@ class ActiveField extends \yii\widgets\ActiveField
     }
 
     /**
-     * @inheritdoc
+     * Renders a radio button.
+     * This method will generate the "checked" tag attribute according to the model attribute value.
+     * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
+     *
+     * - uncheck: string, the value associated with the uncheck state of the radio button. If not set,
+     *   it will take the default value '0'. This method will render a hidden input so that if the radio button
+     *   is not checked and is submitted, the value of this attribute will still be submitted to the server
+     *   via the hidden input.
+     * - label: string, a label displayed next to the radio button. It will NOT be HTML-encoded. Therefore you can pass
+     *   in HTML code such as an image tag. If this is coming from end users, you should [[Html::encode()|encode]] it to prevent XSS attacks.
+     *   When this option is specified, the radio button will be enclosed by a label tag.
+     * - labelOptions: array, the HTML attributes for the label tag. This is only used when the "label" option is specified.
+     *
+     * The rest of the options will be rendered as the attributes of the resulting tag. The values will
+     * be HTML-encoded using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
+     * @param boolean $enclosedByLabel whether to enclose the radio within the label.
+     * If true, the method will still use [[template]] to layout the checkbox and the error message
+     * except that the radio is enclosed by the label tag.
+     * @return static the field object itself
      */
     public function radio($options = [], $enclosedByLabel = true)
     {
@@ -218,7 +282,59 @@ class ActiveField extends \yii\widgets\ActiveField
             $this->labelOptions['class'] = null;
         }
 
-        return parent::radio($options, false);
+        $enclosedByLabel = false;
+
+        if ($enclosedByLabel) {
+            $this->parts['{input}'] = Html::activeRadio($this->model, $this->attribute, $options);
+            $this->parts['{label}'] = '';
+        } else {
+            if (isset($options['label']) && !isset($this->parts['{label}'])) {
+                $this->parts['{label}'] = $options['label'];
+                if (!empty($options['labelOptions'])) {
+                    $this->labelOptions = $options['labelOptions'];
+                }
+            }
+            unset($options['labelOptions']);
+            $options['label'] = null;
+            $this->parts['{input}'] = Html::activeRadio($this->model, $this->attribute, $options);
+        }
+        $this->adjustLabelFor($options);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function switchInput($options = [], $enclosedByLabel = true)
+    {
+        if ($enclosedByLabel) {
+            if (!isset($options['template'])) {
+                $this->template = $this->switchTemplate;
+            } else {
+                $this->template = $options['template'];
+                unset($options['template']);
+            }
+            $this->labelOptions['class'] = null;
+        }
+
+        return parent::checkbox($options, false);
+    }
+
+    public function fileInput($options = [], $enclosedByLabel = true)
+    {
+        if ($enclosedByLabel) {
+            if (!isset($options['template'])) {
+                $this->template = $this->fileTemplate;
+            } else {
+                $this->template = $options['template'];
+                unset($options['template']);
+            }
+            $this->labelOptions['class'] = null;
+        }
+        $this->options['class'] = str_replace('text', 'file', $this->options['class']);
+
+        return parent::fileInput($options, $enclosedByLabel);
     }
 
     /**
@@ -226,6 +342,7 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function checkboxList($items, $options = [])
     {
+        /*
         if ($this->inline) {
             if (!isset($options['template'])) {
                 $this->template = $this->inlineCheckboxListTemplate;
@@ -235,18 +352,19 @@ class ActiveField extends \yii\widgets\ActiveField
             }
             if (!isset($options['itemOptions'])) {
                 $options['itemOptions'] = [
-                    'labelOptions' => ['class' => 'checkbox-inline'],
+                    'labelOptions' => ['class' => 'inline-block'],
                 ];
             }
         } elseif (!isset($options['item'])) {
             $options['item'] = function ($index, $label, $name, $checked, $value) {
-                return '<div class="checkbox">' .
-                    Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]) .
-                    '</div>';
+                return
+                    Html::checkbox($name, $checked, ['label' => $label, 'value' => $value]);
             };
         }
+
         parent::checkboxList($items, $options);
         return $this;
+        */
     }
 
     /**
@@ -254,6 +372,7 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function radioList($items, $options = [])
     {
+        /*
         if ($this->inline) {
             if (!isset($options['template'])) {
                 $this->template = $this->inlineRadioListTemplate;
@@ -275,6 +394,7 @@ class ActiveField extends \yii\widgets\ActiveField
         }
         parent::radioList($items, $options);
         return $this;
+         */
     }
 
     /**
@@ -307,11 +427,10 @@ class ActiveField extends \yii\widgets\ActiveField
                 'tag' => 'p',
                 'class' => 'help-block help-block-error',
             ],
-            'wrapperOptions' => [
+            'options' => [
                 'class' => 'input-control text',
                 'data-role' => 'input-control',
             ],
-            'options' => [],
             'inputOptions' => [],
             'labelOptions' => [],
         ];
