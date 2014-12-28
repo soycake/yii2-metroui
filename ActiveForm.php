@@ -36,8 +36,12 @@ class ActiveForm extends \yii\widgets\ActiveForm
      * @var array HTML attributes for the form tag. Default is `['role' => 'form']`.
      */
     public $options = ['role' => 'form'];
-
+    /**
+     * @var string the CSS class that is added to a field container when the associated attribute has validation error.
+     */
     public $errorCssClass = 'error-state';
-
+    /**
+     * @var string the CSS class that is added to a field container when the associated attribute is successfully validated.
+     */
     public $successCssClass = 'success-state';
 }

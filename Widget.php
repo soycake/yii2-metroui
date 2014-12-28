@@ -11,7 +11,7 @@ use Yii;
 use yii\helpers\Json;
 
 /**
- * \yii\bootstrap\Widget is the base class for all metro ui widgets.
+ * \creators\metroui\Widget is the base class for all metro ui widgets.
  *
  * @author Remchi <creators@email.ua>
  * @since 1.0
