@@ -1,6 +1,6 @@
 <?php
 
-namespace creators\metroui\grid;
+namespace creators\metroui;
 
 class GridView extends \yii\grid\GridView
 {
