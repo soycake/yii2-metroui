@@ -83,7 +83,7 @@ class NavBar extends Widget
         echo Html::beginTag($tag, $options);
 
         Html::addCssClass($this->innerContainerOptions, 'navigation-bar-content');
-        Html::addCssClass($this->innerContainerOptions, 'container');
+        //Html::addCssClass($this->innerContainerOptions, 'container');
         echo Html::beginTag('div', $this->innerContainerOptions);
 
         if ($this->brandLabel !== false) {
