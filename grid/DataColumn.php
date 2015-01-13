@@ -1,6 +1,11 @@
 <?php
+/**
+ * @link http://www.creators.zp.ua/yii2-metroui
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
+ * @license BSD-3-Clause
+ */
 
-namespace creators\metroui\grid;
+namespace yii2metroui\grid;
 
 class DataColumn extends \yii\grid\DataColumn
 {
@@ -9,25 +14,31 @@ class DataColumn extends \yii\grid\DataColumn
         if (is_string($this->filter)) {
             return $this->filter;
         }
+
         $model = $this->grid->filterModel;
+
         if ($this->filter !== false && $model instanceof Model && $this->attribute !== null && $model->isAttributeActive($this->attribute)) {
             if ($model->hasErrors($this->attribute)) {
-                Html::addCssClass($this->filterOptions, 'has-error');
+                Html::addCssClass($this->filterOptions, 'error-state');
                 $error = Html::error($model, $this->attribute, $this->grid->filterErrorOptions);
-            } else {
+            }
+            else {
                 $error = '';
             }
+
             if (is_array($this->filter)) {
                 $options = array_merge(['prompt' => ''], $this->filterInputOptions);
                 return Html::beginTag('div', ['class' => 'input-control select']) .
                     Html::activeDropDownList($model, $this->attribute, $this->filter, $options) . ' ' . $error .
                     Html::closeTag('div');
-            } else {
+            }
+            else {
                 return Html::beginTag('div', ['class' => 'input-control text']) .
                     Html::activeTextInput($model, $this->attribute, $this->filterInputOptions) . ' ' . $error .
                     Html::closeTag('div');
             }
-        } else {
+        }
+        else {
             return parent::renderFilterCellContent();
         }
     }

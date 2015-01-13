@@ -1,11 +1,11 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace yii2metroui\widgets;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  * This class adds some useful features to [[\yii\widgets\ActiveField|ActiveField]] to render all
  * sorts of Metro UI form fields in different form layouts:
  *
- * @see \creators\metroui\ActiveForm
+ * @see \yii2metroui\widgets\ActiveForm
  * @see http://metroui.org.ua/forms.html
  *
  * @author Remchi <creators@email.ua>

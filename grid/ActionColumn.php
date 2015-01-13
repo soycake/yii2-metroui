@@ -1,11 +1,11 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace yii2metroui\grid;
 
 use Yii;
 use yii\helpers\Html;
@@ -16,7 +16,7 @@ class ActionColumn extends \yii\grid\ActionColumn
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig
      */
-    public $fieldClass = 'creators\metroui\ActionColumn';
+    public $fieldClass = 'yii2metroui\grid\ActionColumn';
 
     protected function initDefaultButtons()
     {

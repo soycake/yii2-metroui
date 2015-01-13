@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "creators\\metroui\\": ""
+            "yii2metroui\\": ""
         }
     }
 }
