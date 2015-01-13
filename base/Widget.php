@@ -12,7 +12,7 @@ use yii\helpers\Json;
 use yii2metroui\assets\MetroUiPluginAsset;
 
 /**
- * \creators\metroui\Widget is the base class for all metro ui widgets.
+ * \yii2metroui\base\Widget is the base class for all metro ui widgets.
  *
  * @author Remchi <creators@email.ua>
  * @since 1.0
