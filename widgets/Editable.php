@@ -24,6 +24,7 @@ class Editable extends \yii\widgets\InputWidget
     const MODE_INLINE = 'inline';
 
     const TYPE_TEXT   = 'text';
+    const TYPE_SELECT = 'select';
 
     const SEND_ALWAYS = 'always';
     const SEND_AUTO   = 'auto';
@@ -40,6 +41,8 @@ class Editable extends \yii\widgets\InputWidget
     //public $resetButton = ['class' => 'button warning'];
 
     public $clientOptions = [];
+
+    public $source;
 
     public $mode = self::MODE_INLINE;
 
@@ -74,6 +77,10 @@ class Editable extends \yii\widgets\InputWidget
             //$this->clientOptions['tpl'] = $this->renderFormField();
             $this->renderFormField();
             break;
+        case self::TYPE_SELECT:
+            Html::addCssClass($this->inputContainerOptions, self::TYPE_SELECT);
+            $this->renderFormField();
+            break;
         default:
             break;
         }
@@ -104,7 +111,7 @@ class Editable extends \yii\widgets\InputWidget
 
     public function renderFormField()
     {
-        $field = '<input type="text">';
+        //$field = '<input type="text">';
         //Html::hiddenInput('hasEditable', 0) . "\n";
 
         /*
@@ -133,6 +140,18 @@ class Editable extends \yii\widgets\InputWidget
         $this->clientOptions['mode'] = $this->mode;
         $this->clientOptions['type'] = $this->type;
         $this->clientOptions['name'] = $this->attribute ? : $this->name;
+        $this->clientOptions['value'] = $this->value;
+
+        if ($this->type == self::TYPE_SELECT) {
+
+            $source = [];
+
+            foreach ($this->source as $key=>$value) {
+                $source[] = ['value' => $key, 'text' => $value];
+            }
+
+            $this->clientOptions['source'] = json_encode($source);
+        }
 
         $this->clientOptions['clear'] = null;
 
@@ -150,7 +169,7 @@ class Editable extends \yii\widgets\InputWidget
         $view->registerJs("$.fn.editableform.buttons = '{$this->editableButtons}'" );
         $view->registerJs('$.fn.editableform.template = \'<form class="form-inline editableform"> \
             <div class="control-group">  \
-            <div><div class="editable-input input-control text"></div><div class="editable-buttons"></div></div> \
+            <div><div class="editable-input ' . $this->inputContainerOptions['class'] . '"></div><div class="editable-buttons"></div></div> \
             <div class="editable-error-block"></div>  \
             </div>  \
             </form>\';');
