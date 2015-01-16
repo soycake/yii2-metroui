@@ -7,6 +7,8 @@
 
 namespace yii2metroui\grid;
 
+use yii\helpers\Html;
+
 class DataColumn extends \yii\grid\DataColumn
 {
     protected function renderFilterCellContent()
@@ -17,7 +19,7 @@ class DataColumn extends \yii\grid\DataColumn
 
         $model = $this->grid->filterModel;
 
-        if ($this->filter !== false && $model instanceof Model && $this->attribute !== null && $model->isAttributeActive($this->attribute)) {
+        if ($this->filter !== false && $this->attribute !== null && $model->isAttributeActive($this->attribute)) {
             if ($model->hasErrors($this->attribute)) {
                 Html::addCssClass($this->filterOptions, 'error-state');
                 $error = Html::error($model, $this->attribute, $this->grid->filterErrorOptions);
@@ -30,12 +32,12 @@ class DataColumn extends \yii\grid\DataColumn
                 $options = array_merge(['prompt' => ''], $this->filterInputOptions);
                 return Html::beginTag('div', ['class' => 'input-control select']) .
                     Html::activeDropDownList($model, $this->attribute, $this->filter, $options) . ' ' . $error .
-                    Html::closeTag('div');
+                    Html::endTag('div');
             }
             else {
                 return Html::beginTag('div', ['class' => 'input-control text']) .
                     Html::activeTextInput($model, $this->attribute, $this->filterInputOptions) . ' ' . $error .
-                    Html::closeTag('div');
+                    Html::endTag('div');
             }
         }
         else {
