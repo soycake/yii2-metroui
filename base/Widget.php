@@ -1,17 +1,18 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace creators\metroui\base;
 
 use Yii;
 use yii\helpers\Json;
+use creators\metroui\assets\MetroUiPluginAsset;
 
 /**
- * \creators\metroui\Widget is the base class for all metro ui widgets.
+ * \creators\metroui\base\Widget is the base class for all metro ui widgets.
  *
  * @author Remchi <creators@email.ua>
  * @since 1.0

@@ -1,11 +1,11 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace creators\metroui\assets;
 
 use yii\web\AssetBundle;
 
@@ -23,6 +23,6 @@ class MetroUiPluginAsset extends AssetBundle
     ];
     public $depends = [
         'yii\jui\JuiAsset',
-        'creators\metroui\MetroUiAsset',
+        'creators\metroui\assets\MetroUiAsset',
     ];
 }

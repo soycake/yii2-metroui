@@ -1,11 +1,11 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace creators\metroui\widgets;
 
 /**
  * A Metro UI enhanced version of [[\yii\widgets\ActiveForm]].
@@ -14,12 +14,12 @@ namespace creators\metroui;
  * So for example to render form you would:
  *
  * ```php
- * use creators\metroui\ActiveForm;
+ * use creators\metroui\widgets\ActiveForm;
  *
  * $form = ActiveForm::begin([])
  * ```
  *
- * @see \creators\metroui\ActiveField for details on the [[fieldConfig]] options
+ * @see \creators\metroui\widgets\ActiveField for details on the [[fieldConfig]] options
  * @see http://metroui.org.ua/forms.html
  *
  * @author Remchi <creators@email.ua>
@@ -31,7 +31,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig
      */
-    public $fieldClass = 'creators\metroui\ActiveField';
+    public $fieldClass = '\creators\metroui\widgets\ActiveField';
     /**
      * @var array HTML attributes for the form tag. Default is `['role' => 'form']`.
      */

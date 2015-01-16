@@ -1,26 +1,27 @@
 <?php
 /**
  * @link http://www.creators.zp.ua/yii2-metroui
- * @copyright Copyright (c) 2015 Fintegro Inc
+ * @copyright Copyright (c) 2015 Remchi <creators@email.ua>
  * @license BSD-3-Clause
  */
 
-namespace creators\metroui;
+namespace creators\metroui\widgets;
 
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use creators\metroui\assets\MetroUiPluginAsset;
 
 /**
  * NavBar renders a navbar HTML component.
  *
  * Any content enclosed between the [[begin()]] and [[end()]] calls of NavBar
  * is treated as the content of the navbar. You may use widgets such as [[Menu]]
- * or [[\creators\metroui\Menu]] to build up such content. For example,
+ * or [[\creators\metroui\widgets\Menu]] to build up such content. For example,
  *
  * ```php
- * use creators\metroui\NavBar;
- * use creators\metroui\Menu;
+ * use creators\metroui\widgets\NavBar;
+ * use creators\metroui\widgets\Menu;
  *
  * NavBar::begin(['brandLabel' => 'NavBar Test']);
  * echo Menu::widget([
@@ -36,7 +37,7 @@ use yii\helpers\Html;
  * @author Remchi <creators@email.ua>
  * @since 1.0
  */
-class NavBar extends Widget
+class NavBar extends \creators\metroui\base\Widget
 {
     /**
      * @var array the HTML attributes for the widget container tag. The following special options are recognized:
