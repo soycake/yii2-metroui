@@ -50,6 +50,8 @@ class Editable extends \yii\widgets\InputWidget
 
     public $url;
 
+    public $emptyText = '(not set)';
+
     public function init()
     {
         if ($this->url === null) {
@@ -141,6 +143,7 @@ class Editable extends \yii\widgets\InputWidget
         $this->clientOptions['type'] = $this->type;
         $this->clientOptions['name'] = $this->attribute ? : $this->name;
         $this->clientOptions['value'] = $this->value;
+        $this->clientOptions['emptytext'] = $this->emptyText;
 
         if ($this->type == self::TYPE_SELECT) {
 

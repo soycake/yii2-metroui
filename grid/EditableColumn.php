@@ -16,6 +16,8 @@ class EditableColumn extends DataColumn
 {
     public $editableOptions;
 
+    public $refreshGrid = false;
+
     public function init()
     {
         parent::init();
@@ -58,13 +60,23 @@ class EditableColumn extends DataColumn
 
     protected function registerClientScript()
     {
-        /*
         $view = $this->grid->getView();
+        /*
         EditableAsset::register($view);
 
         $selector = "[rel=\"{$this->options['rel']}\"]";
-
-        $view->registerJs(";jQuery('$selector').editable();");
          */
+
+        $grid = ";jQuery('#{$this->grid->options['id']}')";
+        $view->registerJs("$.fn.editable.defaults.ajaxOptions = {success: function(){ {$grid}.yiiGridView('applyFilter'); }}" );
+        $script = <<<JS
+{$grid}.find('.editable-input').each(function() {
+    var \$input = $(this);
+    \$input.on('editableSuccess', function() {
+        {$grid}.yiiGridView('applyFilter');
+    });
+});
+JS;
+        $view->registerJs($script);
     }
 }
