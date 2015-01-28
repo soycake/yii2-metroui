@@ -18,6 +18,8 @@ class EditableColumn extends DataColumn
 
     public $refreshGrid = false;
 
+    public $disabled = false;
+
     public function init()
     {
         parent::init();
@@ -37,6 +39,15 @@ class EditableColumn extends DataColumn
         //$this->editableOptions['value'] = $value;
         //$this->editableOptions['pk'] = $key;
         $this->editableOptions['name'] = $this->attribute;
+
+        unset($this->editableOptions['disabled']);
+
+        if ($this->disabled instanceof \Closure) {
+            $this->editableOptions['clientOptions']['disabled'] = call_user_func_array($this->disabled, [$model]);
+        }
+        else {
+            $this->editableOptions['clientOptions']['disabled'] = $this->disabled;
+        }
 
         /*
         $rel = $this->attribute . '_editable';
