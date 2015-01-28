@@ -68,7 +68,7 @@ class EditableColumn extends DataColumn
          */
 
         $grid = ";jQuery('#{$this->grid->options['id']}')";
-        $view->registerJs("$.fn.editable.defaults.ajaxOptions = {success: function(){ {$grid}.yiiGridView('applyFilter'); }}" );
+        $view->registerJs("if ($.fn.editable != null) $.fn.editable.defaults.ajaxOptions = {success: function(){ {$grid}.yiiGridView('applyFilter'); }}" );
         $script = <<<JS
 {$grid}.find('.editable-input').each(function() {
     var \$input = $(this);
