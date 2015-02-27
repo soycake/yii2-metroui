@@ -26,5 +26,5 @@ class MetroUiAsset extends AssetBundle
     
     public $js = [
         'min/metro.min.js'
-    ]
+    ];
 }
