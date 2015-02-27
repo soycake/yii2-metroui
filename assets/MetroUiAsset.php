@@ -23,8 +23,4 @@ class MetroUiAsset extends AssetBundle
         'min/metro-bootstrap-responsive.min.css',
         'min/iconFont.min.css'
     ];
-    
-    public $js = [
-        'min/metro.min.js'
-    ];
 }
